@@ -431,7 +431,11 @@ public class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGesture
     // MARK: UIMenu visibility
     
     override public func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-        if UIMenuController.sharedMenuController().menuItems?.count == 0 {
+		guard readerConfig.useReaderMenuController else {
+			return false
+		}
+
+		if UIMenuController.sharedMenuController().menuItems?.count == 0 {
             webView.isColors = false
             webView.createMenu(options: false)
         }
@@ -459,17 +463,6 @@ public class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGesture
 		for listener in readerConfig.classBasedOnClickListeners {
 			self.webView.js("addClassBasedOnClickListener(\"\(listener.schemeName)\", \"\(listener.querySelector)\", \"\(listener.attributeName)\", \"\(listener.selectAll)\")");
 		}
-	}
-
-	// MARK: - Public Java Script injection
-
-	/** 
-	Runs a JavaScript script and returns it result. The result of running the JavaScript script passed in the script parameter, or nil if the script fails.
-
-	- returns: The result of running the JavaScript script passed in the script parameter, or nil if the script fails.
-	*/
-	public func performJavaScript(javaScriptCode: String) -> String? {
-		return webView.js(javaScriptCode)
 	}
 }
 
