@@ -983,7 +983,7 @@ public class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UICo
 
 		// Update the current page after small delay to make sure that the collection view did perform the actual page change
 		if scrollView is UICollectionView {
-			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
 				if self.totalPages > 0 { self.updateCurrentPage() }
 			})
 		}
